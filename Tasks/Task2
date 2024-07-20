@@ -1,0 +1,14 @@
+WITH RECURSIVE months AS (
+    SELECT 1 AS month
+    UNION ALL
+    SELECT month + 1
+    FROM months
+    WHERE month < 12
+)
+SELECT
+    DATE_FORMAT(STR_TO_DATE(month, '%m'), '%M') AS month_name,
+    DAY(LAST_DAY(CONCAT(YEAR(CURDATE()), '-', LPAD(month, 2, '0'), '-01'))) AS days_in_month
+FROM months;
+
+
+
